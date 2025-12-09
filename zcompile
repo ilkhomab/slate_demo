@@ -1,0 +1,7 @@
+ml rocm craype-accel-amd-gfx90a slate-amd-gfx90a/2024.10.29
+
+CC  -O3 -fopenmp -std=c++17 -c slate_zgemm_mat.cc -o slate_zgemm_mat.o
+CC -O3 -fopenmp -std=c++17 -c slate_zgemm_vec.cc -o slate_zgemm_vec.o
+ftn -O3 -fopenmp -c slate_zmatvec.f90 -o slate_zmatvec.o
+ftn -O3 -fopenmp -c slate_zmatmat.f90 -o slate_zmatmat.o
+ftn -O3 -fopenmp demo_zmatmat.f90 slate_zmatmat.o slate_zmatvec.o slate_zgemm_mat.o  slate_zgemm_vec.o -lslate -llapackpp -lblaspp -lrocblas -lamdhip64 -lstdc++ -o demo_zmatmat
